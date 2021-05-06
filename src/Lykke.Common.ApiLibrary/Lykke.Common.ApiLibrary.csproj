@@ -9,7 +9,7 @@
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/14153330?v=3&amp;s=200</PackageIconUrl>
     <RepositoryUrl>https://github.com/LykkeBusinessPlatform/Lykke.Common.ApiLibrary.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>Lykke</PackageTags>
+    <PackageTags>Lykke;LykkeBusiness</PackageTags>
     <PackageId>LykkeBiz.Common.ApiLibrary</PackageId>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <FileVersion>1.0.1.0</FileVersion>
