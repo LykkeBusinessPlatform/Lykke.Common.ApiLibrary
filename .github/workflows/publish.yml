@@ -1,4 +1,4 @@
-name: Publish to nuget
+name: Publish to NUGET
 on:
   push:
     tags: "*"
