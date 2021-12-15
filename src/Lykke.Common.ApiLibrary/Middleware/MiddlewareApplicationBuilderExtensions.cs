@@ -5,6 +5,7 @@ using Lykke.Common.Log;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Lykke.Common.ApiLibrary.Middleware
 {
@@ -18,12 +19,14 @@ namespace Lykke.Common.ApiLibrary.Middleware
         /// <param name="componentName">Component name for logs</param>
         /// <param name="createGlobalErrorResponse">Create global error response delegate</param>
         /// <param name="logClientErrors">log 4xx errors</param>
+        /// <param name="useStandardLogger">Use Microsoft ILogger interface</param>
         [Obsolete]
         public static void UseLykkeMiddleware(
             this IApplicationBuilder app, 
             string componentName, 
             CreateErrorResponse createGlobalErrorResponse,
-            bool logClientErrors = false)
+            bool logClientErrors = false,
+            bool useStandardLogger = false)
         {
             app.Use(async (context, next) =>
             {
@@ -32,16 +35,29 @@ namespace Lykke.Common.ApiLibrary.Middleware
                 context.Request.EnableRewind();
                 await next();
             });
-
-            var log = app.ApplicationServices.GetRequiredService<ILog>();
-
-            app.UseMiddleware<GlobalErrorHandlerMiddleware>(
-                log,
-                componentName, 
-                createGlobalErrorResponse);
+            
+            if (useStandardLogger)
+            {
+                var log = app.ApplicationServices.GetRequiredService<ILogger>();
+                
+                app.UseMiddleware<GlobalErrorHandlerMiddlewareWithStandardLogger>(
+                    log,
+                    createGlobalErrorResponse);    
+            }
+            else
+            {
+                var log = app.ApplicationServices.GetRequiredService<ILog>();
+                
+                app.UseMiddleware<GlobalErrorHandlerMiddleware>(
+                    log,
+                    componentName, 
+                    createGlobalErrorResponse);   
+            }
 
             if (logClientErrors)
             {
+                var log = app.ApplicationServices.GetRequiredService<ILog>();
+                
                 app.UseMiddleware<ClientErrorHandlerMiddleware>(
                     log,
                     componentName);
@@ -49,15 +65,17 @@ namespace Lykke.Common.ApiLibrary.Middleware
         }
 
         /// <summary>
-        /// Configure application to use standart Lykke middleware
+        /// Configure application to use standard Lykke middleware
         /// </summary>
         /// <param name="app">Application builder</param>
         /// <param name="createGlobalErrorResponse">Create global error response delegate</param>
         /// <param name="logClientErrors">Enables logging of the requests with 4xx response codes</param>
+        /// <param name="useStandardLogger">Use Microsoft ILogger interface</param>
         public static void UseLykkeMiddleware(
             [NotNull] this IApplicationBuilder app, 
             [NotNull] CreateErrorResponse createGlobalErrorResponse,
-            bool logClientErrors = false)
+            bool logClientErrors = false,
+            bool useStandardLogger = false)
         {
             if (app == null)
             {
@@ -78,9 +96,20 @@ namespace Lykke.Common.ApiLibrary.Middleware
 
             var logFactory = app.ApplicationServices.GetRequiredService<ILogFactory>();
 
-            app.UseMiddleware<GlobalErrorHandlerMiddleware>(
-                logFactory,
-                createGlobalErrorResponse);
+            if (useStandardLogger)
+            {
+                var log = app.ApplicationServices.GetRequiredService<ILogger>();
+                
+                app.UseMiddleware<GlobalErrorHandlerMiddlewareWithStandardLogger>(
+                    log,
+                    createGlobalErrorResponse);
+            }
+            else
+            {
+                app.UseMiddleware<GlobalErrorHandlerMiddleware>(
+                    logFactory,
+                    createGlobalErrorResponse);
+            }
 
             if (logClientErrors)
             {
