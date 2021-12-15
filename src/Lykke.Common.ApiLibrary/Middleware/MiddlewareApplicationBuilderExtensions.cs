@@ -19,7 +19,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
         /// <param name="componentName">Component name for logs</param>
         /// <param name="createGlobalErrorResponse">Create global error response delegate</param>
         /// <param name="logClientErrors">log 4xx errors</param>
-        /// <param name="useStandardLogger">Use Microsoft ILogger interface</param>
+        /// <param name="useStandardLogger">Use Microsoft ILogger interface for global error handling</param>
         [Obsolete]
         public static void UseLykkeMiddleware(
             this IApplicationBuilder app, 
@@ -70,7 +70,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
         /// <param name="app">Application builder</param>
         /// <param name="createGlobalErrorResponse">Create global error response delegate</param>
         /// <param name="logClientErrors">Enables logging of the requests with 4xx response codes</param>
-        /// <param name="useStandardLogger">Use Microsoft ILogger interface</param>
+        /// <param name="useStandardLogger">Use Microsoft ILogger interface for global error handling</param>
         public static void UseLykkeMiddleware(
             [NotNull] this IApplicationBuilder app, 
             [NotNull] CreateErrorResponse createGlobalErrorResponse,
