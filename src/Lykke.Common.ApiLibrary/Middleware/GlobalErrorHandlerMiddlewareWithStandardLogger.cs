@@ -10,11 +10,11 @@ namespace Lykke.Common.ApiLibrary.Middleware
 {
     public class GlobalErrorHandlerMiddlewareWithStandardLogger
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<GlobalErrorHandlerMiddlewareWithStandardLogger> _logger;
         private readonly CreateErrorResponse _createErrorResponse;
         private readonly RequestDelegate _next;
 
-        public GlobalErrorHandlerMiddlewareWithStandardLogger(ILogger logger, CreateErrorResponse createErrorResponse, RequestDelegate next)
+        public GlobalErrorHandlerMiddlewareWithStandardLogger(ILogger<GlobalErrorHandlerMiddlewareWithStandardLogger> logger, CreateErrorResponse createErrorResponse, RequestDelegate next)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _createErrorResponse = createErrorResponse ?? throw new ArgumentNullException(nameof(createErrorResponse));
