@@ -38,7 +38,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
             
             if (useStandardLogger)
             {
-                var log = app.ApplicationServices.GetRequiredService<ILogger>();
+                var log = app.ApplicationServices.GetRequiredService<ILogger<GlobalErrorHandlerMiddlewareWithStandardLogger>>();
                 
                 app.UseMiddleware<GlobalErrorHandlerMiddlewareWithStandardLogger>(
                     log,
@@ -98,7 +98,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
 
             if (useStandardLogger)
             {
-                var log = app.ApplicationServices.GetRequiredService<ILogger>();
+                var log = app.ApplicationServices.GetRequiredService<ILogger<GlobalErrorHandlerMiddlewareWithStandardLogger>>();
                 
                 app.UseMiddleware<GlobalErrorHandlerMiddlewareWithStandardLogger>(
                     log,
