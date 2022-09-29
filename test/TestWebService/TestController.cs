@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace TestWebService
 {
@@ -11,7 +10,6 @@ namespace TestWebService
     public class TestController : Controller
     {
         [HttpPost("one")]
-        [SwaggerOperation("NonNullableEnum")]
         [ProducesResponseType(typeof(ResponseModel), 200)]
         public IActionResult One([FromBody] RequestModel parameter)
         {
