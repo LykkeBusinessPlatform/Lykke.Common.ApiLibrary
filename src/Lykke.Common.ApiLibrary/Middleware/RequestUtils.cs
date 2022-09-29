@@ -14,7 +14,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
             {
                 return null;
             }
-
+            
             // request body might be already read at the moment 
             if (context.Request.Body.CanSeek)
             {
@@ -25,7 +25,7 @@ namespace Lykke.Common.ApiLibrary.Middleware
             const int maxBytesToRead = 1024 * 64;
             var bodyBytes = new byte[maxBytesToRead];
             var bodyBytesCount = await context.Request.Body.ReadAsync(bodyBytes, 0, maxBytesToRead);
-
+            
             return Encoding.UTF8.GetString(bodyBytes, 0, bodyBytesCount);
         }
 

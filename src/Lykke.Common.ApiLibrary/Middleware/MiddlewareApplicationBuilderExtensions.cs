@@ -63,6 +63,37 @@ namespace Lykke.Common.ApiLibrary.Middleware
                     componentName);
             }
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="componentName"></param>
+        /// <param name="createGlobalErrorResponse"></param>
+        /// <param name="logClientErrors"></param>
+        public static void UseLykkeMiddleware(
+            this IApplicationBuilder app, 
+            string componentName, 
+            CreateErrorResponse createGlobalErrorResponse,
+            bool logClientErrors = false)
+        {
+            app.Use(async (context, next) =>
+            {
+                // enable ability to seek on request stream within any host,
+                // but not only Kestrel, for any subsequent middleware
+                context.Request.EnableRewind();
+                await next();
+            });
+            
+            if (logClientErrors)
+            {
+                var log = app.ApplicationServices.GetRequiredService<ILog>();
+                
+                app.UseMiddleware<ClientErrorHandlerMiddleware>(
+                    log,
+                    componentName);
+            }
+        }
 
         /// <summary>
         /// Configure application to use standard Lykke middleware

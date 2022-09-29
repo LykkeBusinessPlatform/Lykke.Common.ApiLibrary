@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using Common.Log;
+﻿using System.Collections.Generic;
 using Lykke.Common.ApiLibrary.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -16,10 +11,7 @@ namespace TestWebService
 {
     public class Startup
     {
-
-        public IContainer ApplicationContainer { get; private set; }
         public IConfigurationRoot Configuration { get; }
-        public ILog Log { get; private set; }
 
         public Startup(IHostingEnvironment env)
         {
@@ -30,13 +22,12 @@ namespace TestWebService
 
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .AddJsonOptions(options =>
+                .AddNewtonsoftJson(options =>
                 {
-                    options.SerializerSettings.ContractResolver =
-                        new DefaultContractResolver();
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
             services.AddSwaggerGen(options =>
@@ -51,19 +42,6 @@ namespace TestWebService
                 //                    });
 
             });
-            services.Configure<MvcJsonOptions>(c =>
-            {
-                // Serialize all properties to camelCase by default
-                c.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            });
-
-
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-            ApplicationContainer = builder.Build();
-
-            return new AutofacServiceProvider(ApplicationContainer);
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
@@ -73,7 +51,8 @@ namespace TestWebService
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             app.UseSwagger(c =>
             {

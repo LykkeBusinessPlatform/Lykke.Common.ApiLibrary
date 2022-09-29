@@ -16,14 +16,11 @@
     <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Lykke.Common" Version="7.5.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.17.0" />
+    <PackageReference Include="LykkeBiz.Common" Version="8.1.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
     <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.14" />
     <PackageReference Include="IdentityModel" Version="3.10.6" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.1.0" />
@@ -31,7 +28,7 @@
   <ItemGroup Label="dotnet pack instructions">
     <Content Include="$(OutputPath)$(AssemblyName).pdb">
       <Pack>true</Pack>
-      <PackagePath>lib/netstandard1.6</PackagePath>
+      <PackagePath>lib/netstandard2.0</PackagePath>
     </Content>
   </ItemGroup>
 </Project>
