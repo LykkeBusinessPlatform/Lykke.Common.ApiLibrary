@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace TestWebService
 {
@@ -13,7 +14,7 @@ namespace TestWebService
                 .UseUrls("http://*:5000")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
+                .ConfigureLogging(x => x.AddConsole())
                 .Build();
 
             return host.RunAsync();
