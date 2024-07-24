@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Lykke Business</Authors>
     <Company>Lykke Business</Company>
     <Description>Utility libraries for DotNetCore WebAPI projects</Description>
@@ -14,19 +14,17 @@
     <Version>4.2.5</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LykkeBiz.Common" Version="8.1.0" />
-    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.21.0" />
-    <PackageReference Include="Microsoft.AspNetCore.HttpOverrides" Version="2.2.0" />
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
+    <PackageReference Include="LykkeBiz.Common" Version="8.3.0" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="IdentityModel" Version="3.10.6" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.1.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.6.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+    <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.7.1" />
   </ItemGroup>
   <ItemGroup Label="dotnet pack instructions">
     <Content Include="$(OutputPath)$(AssemblyName).pdb">
       <Pack>true</Pack>
-      <PackagePath>lib/netstandard2.0</PackagePath>
+      <PackagePath>lib/net8.0</PackagePath>
     </Content>
   </ItemGroup>
 </Project>

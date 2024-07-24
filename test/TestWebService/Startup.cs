@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using Lykke.Common.ApiLibrary.Swagger;
+﻿using Lykke.Common.ApiLibrary.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 
 namespace TestWebService
@@ -13,7 +12,7 @@ namespace TestWebService
     {
         public IConfigurationRoot Configuration { get; }
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -32,19 +31,11 @@ namespace TestWebService
 
             services.AddSwaggerGen(options =>
             {
-                options.DefaultLykkeConfiguration("v1", "ClientAccountRecovery API");
-                //                options.SwaggerDoc(
-                //                    $"v1",
-                //                    new Info
-                //                    {
-                //                        Version = "v1",
-                //                        Title = "App title"
-                //                    });
-
+                options.DefaultLykkeConfiguration("v1", "TestWebService API");
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -54,13 +45,10 @@ namespace TestWebService
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
-            app.UseSwagger(c =>
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                c.PreSerializeFilters.Add((swagger, httpReq) =>
-                    swagger.Servers = new List<OpenApiServer>
-                    {
-                        new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}" }
-                    });
+                c.SwaggerEndpoint("v1/swagger.json", "TestWebService API");
             });
 
             app.UseStaticFiles();

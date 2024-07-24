@@ -3,7 +3,6 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.OpenApi.Models;
-using MoreLinq;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Lykke.Common.ApiLibrary.Swagger.XmsEnum

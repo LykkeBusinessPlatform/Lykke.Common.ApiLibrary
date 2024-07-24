@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace Lykke.Common.ApiLibrary.Swagger
 {
@@ -68,7 +69,7 @@ namespace Lykke.Common.ApiLibrary.Swagger
                     Title = apiTitle
                 });
 
-            swaggerOptions.DescribeAllEnumsAsStrings();
+            swaggerOptions.AddEnumsWithValuesFixFilters();
             swaggerOptions.EnableXmsEnumExtension();
             swaggerOptions.EnableXmlDocumentation();
             swaggerOptions.MakeResponseValueTypesRequired();

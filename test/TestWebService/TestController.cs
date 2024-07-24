@@ -26,6 +26,24 @@ namespace TestWebService
                 SomeString = parameter.SomeString
             });
         }
+        
+        [HttpGet("two")]
+        [ProducesResponseType(typeof(ResponseModel), 200)]
+        public IActionResult Two([FromQuery] RequestModel parameter)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(new ResponseModel
+            {
+                NonNullable = parameter.NonNullable,
+                Nullable = parameter.Nullable,
+                SomeDouble = parameter.SomeDouble,
+                SomeInt = parameter.SomeInt,
+                SomeString = parameter.SomeString
+            });
+        }
 
     }
 
