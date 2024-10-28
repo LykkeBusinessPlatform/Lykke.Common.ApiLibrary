@@ -14,17 +14,11 @@
     <Version>5.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="LykkeBiz.Common" Version="8.3.0" />
+    <PackageReference Include="LykkeBiz.Common" Version="9.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
-    <PackageReference Include="IdentityModel" Version="3.10.6" />
-    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.6.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.6.2" />
+    <PackageReference Include="IdentityModel" Version="4.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.7.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.7.0" />
     <PackageReference Include="Unchase.Swashbuckle.AspNetCore.Extensions" Version="2.7.1" />
-  </ItemGroup>
-  <ItemGroup Label="dotnet pack instructions">
-    <Content Include="$(OutputPath)$(AssemblyName).pdb">
-      <Pack>true</Pack>
-      <PackagePath>lib/net8.0</PackagePath>
-    </Content>
   </ItemGroup>
 </Project>

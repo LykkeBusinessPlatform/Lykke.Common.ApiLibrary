@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -148,16 +149,17 @@ namespace Lykke.Common.ApiLibrary.Authentication.Introspection
             return result;
         }
 
-        private AsyncLazy<IntrospectionResponse> CreateLazyIntrospection(string token)
+        private AsyncLazy<TokenIntrospectionResponse> CreateLazyIntrospection(string token)
         {
-            return new AsyncLazy<IntrospectionResponse>(() => LoadClaimsForToken(token));
+            return new AsyncLazy<TokenIntrospectionResponse>(() => LoadClaimsForToken(token));
         }
 
-        private async Task<IntrospectionResponse> LoadClaimsForToken(string token)
+        private async Task<TokenIntrospectionResponse> LoadClaimsForToken(string token)
         {
-            var introspectionClient = await Options.IntrospectionClient.Value.ConfigureAwait(false);
 
-            return await introspectionClient.SendAsync(new IntrospectionRequest
+            using var httpClient = new HttpClient();
+
+            return await httpClient.IntrospectTokenAsync(new TokenIntrospectionRequest
             {
                 Token = token,
                 TokenTypeHint = Options.TokenTypeHint,
