@@ -1,4 +1,4 @@
-## [[tbd]] ([[date]])
+## 6.0.0 ([[date]])
 
 ### Changed
 - Introspection options and handler are no longer supported. This feature requires implementation due to IdentityModel 4.x changes.
