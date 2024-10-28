@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Lykke.Common.ApiLibrary.Authentication.Introspection
 {
+    [Obsolete("Introspection client was removed due to IdentityModel changes")]
     /// <summary>
     /// Options class for the OAuth 2.0 introspection endpoint authentication handler
     /// </summary>
@@ -138,8 +139,7 @@ namespace Lykke.Common.ApiLibrary.Authentication.Introspection
             set { base.Events = value; }
         }
 
-        internal AsyncLazy<IntrospectionClient> IntrospectionClient { get; set; }
-        internal ConcurrentDictionary<string, AsyncLazy<IntrospectionResponse>> LazyIntrospections { get; set; }
+        internal ConcurrentDictionary<string, AsyncLazy<TokenIntrospectionResponse>> LazyIntrospections { get; set; }
 
         /// <summary>
         /// Check that the options are valid. Should throw an exception if things are not ok.
