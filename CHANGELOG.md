@@ -1,3 +1,8 @@
+## [[tbd]] ([[date]])
+
+### Changed
+- Introspection options and handler are no longer supported. This feature requires implementation due to IdentityModel 4.x changes.
+
 ## 5.0.0 (2024-07-24)
 
 ### Changed
